@@ -1,11 +1,11 @@
 import React from "react";
+import DaysWeek from "../components/DaysWeek";
 
 const Calendar = () => {
 
   return (
     <div>
           <DaysWeek />
-          <DaysMonths date={date} handleDay={handleDay} notes={notes} />
     </div>
   );
 };

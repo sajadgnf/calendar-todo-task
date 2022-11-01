@@ -1,4 +1,5 @@
 import moment from "moment/moment";
+import Calendar from "../containers/Calendar";
 
 export default function Home() {
   // const months = moment.months();
@@ -55,6 +56,7 @@ export default function Home() {
 
   return (
     <div>
+      <Calendar />
       {/* <h2>{year}</h2>
       <div>
         {months.map((month, index) => (
