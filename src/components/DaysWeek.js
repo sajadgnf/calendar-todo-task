@@ -1,13 +1,23 @@
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import daysWeek from "../data/daysWeek";
 
 const DaysWeek = () => {
   return (
-    <div>
+    <Box display="flex">
       {daysWeek.map((day) => (
-        <div key={day}>{day}</div>
+        <Typography
+          key={day}
+          width={34}
+          height={34}
+          mx
+          color="#afa2a2"
+          textTransform="uppercase"
+        >
+          {day}
+        </Typography>
       ))}
-    </div>
+    </Box>
   );
 };
 

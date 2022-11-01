@@ -1,3 +1,5 @@
+import { Box } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import React from "react";
 
 const sameDate = (date1, date2) => {
@@ -6,7 +8,47 @@ const sameDate = (date1, date2) => {
     date1.getFullYear() === date2.getFullYear();
 };
 
+const useStyle = makeStyles({
+  day: {
+    cursor: "pointer",
+    float: "left",
+    height: 34,
+    width: 34,
+    margin: "0 8px",
+    color: "#FFF",
+    textAlign: "center",
+    paddingTop: 6,
+    fontSize: 16,
+    fontWeight: 400,
+  },
+
+  noDay: {
+    cursor: "default",
+    float: "left",
+  },
+
+  today: {
+    backgroundColor: "#448AFF",
+    borderRadius: "50%",
+    color: "#000000",
+    fontWeight: 500,
+  },
+
+  note: {
+    cursor: "pointer",
+    backgroundColor: "#7C4DFF",
+    borderRadius: "50%",
+    color: "#000000",
+    fontWeight: 500,
+  },
+
+  clear: {
+    clear: "both",
+  },
+});
+
 const DaysMonth = () => {
+  const classes = useStyle();
   let actualDate = new Date();
   actualDate.setDate(1);
 
@@ -17,7 +59,7 @@ const DaysMonth = () => {
   let firstDayOfMonth = actualDate.getDay() === 0 ? 7 : actualDate.getDay();
 
   for (let i = 1; i < firstDayOfMonth; i++) {
-    calendar.push({ dayClass: "no-day", number: null });
+    calendar.push({ dayClass: "noDay", number: null });
   }
 
   while (actualDate.getMonth() === actualMonth) {
@@ -37,29 +79,41 @@ const DaysMonth = () => {
 
   if (actualDate.getDate() === 0) {
     for (let i = 7, j = calendar.length % 7; i > j; i--) {
-      calendar.push({ dayClass: "no-day", number: null });
+      calendar.push({ dayClass: "noDay", number: null });
     }
   }
-
   return (
-    <div>
+    <Box>
       {calendar.map((day, index) => {
         let notesDay = `${day.number}/${
           noteMonth.getMonth() + 1
         }/${noteMonth.getFullYear()}`;
+
+        console.log(day.dayClass);
         return day.number !== null ? (
           <div
             key={index}
             value={notesDay}
-            className={day.dayClass}
+            className={`${classes.day}
+                 ${day.dayClass === "noDay" && classes.noDay}
+               ${day.dayClass === "today" && classes.today}
+                ${day.dayClass === "day clear" && classes.clear}
+            `}
           >
             {day.number}
           </div>
         ) : (
-          <div key={index} className={day.dayClass} />
+          <div
+            key={index}
+            className={`${classes.day}
+                 ${day.dayClass === "noDay" && classes.noDay}
+               ${day.dayClass === "today" && classes.today}
+                ${day.dayClass === "day clear" && classes.clear}
+            `}
+          />
         );
       })}
-    </div>
+    </Box>
   );
 };
 

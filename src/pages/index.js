@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import moment from "moment/moment";
 import Calendar from "../containers/Calendar";
 
@@ -55,7 +56,7 @@ export default function Home() {
   // };
 
   return (
-    <div>
+    <Box borderRadius={10} overflow='hidden'>
       <Calendar />
       {/* <h2>{year}</h2>
       <div>
@@ -81,6 +82,6 @@ export default function Home() {
           </div>
         ))}
       </div> */}
-    </div>
+    </Box>
   );
 }
