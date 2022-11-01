@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const sameDate = (date1, date2) => {
   date1.getDate() === date2.getDate() &&
@@ -48,11 +49,13 @@ const useStyle = makeStyles({
 });
 
 const DaysMonth = () => {
+  const date = useSelector((state) => state.date);
+  // console.log(new Date(date.getTime()));
   const classes = useStyle();
-  let actualDate = new Date();
+  let actualDate = new Date(date.getTime());
   actualDate.setDate(1);
 
-  let noteMonth = actualDate;
+  let noteMonth = date;
   let actualMonth = actualDate.getMonth();
   let calendar = [];
 
@@ -89,7 +92,6 @@ const DaysMonth = () => {
           noteMonth.getMonth() + 1
         }/${noteMonth.getFullYear()}`;
 
-        console.log(day.dayClass);
         return day.number !== null ? (
           <div
             key={index}
