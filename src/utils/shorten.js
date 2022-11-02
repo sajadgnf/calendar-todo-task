@@ -1,19 +1,20 @@
 const shorter = (text) => {
-  const splitText = text.split(" ");
-  let time = "";
-  let key = "";
+  let splitText = text.split(" ");
 
-  splitText[0] === "an" || splitText[0] === "a"
-    ? (time = 1)
-    : (time = splitText[0]);
-  splitText[1] === "few" ? (time = "few ") : (time = splitText[0]);
+  splitText = splitText.map((text) => {
+    if (text === "seconds") text = " sec";
+    if (text === "minutes") text = "m";
+    if (text === "hours" || text === "hour") text = "h";
+    if (text === "in") text = "";
+    if (text === "a" && splitText[1] === "few") text = "";
+    if (text === "an" || text === "a") text = "1";
 
-  if (splitText[1] === "minutes") key = "m";
-  if (splitText[2] === "seconds") key = "sec";
-  if (splitText[1] === "hours" || splitText[1] === "hour") key = "h";
+    return text;
+  });
 
-  const newText = `${time}${key}`;
-
+  const newText = `${splitText[0]}${splitText[1]}${
+    !splitText[0] ? splitText[2] : ""
+  }`;
   return newText;
 };
 

@@ -7,17 +7,17 @@ import shorten from "../utils/shorten";
 import Image from "next/image";
 
 const TodoNote = ({ note }) => {
-  const { color, description, location, startTime, endTime, createdAt, icon } =
+  const { color, title, location, startTime, endTime, createdAt, icon } =
     note;
 
   const time = moment(createdAt).fromNow();
 
   return (
-    <Box bgcolor={color} borderRadius={5} p={2}>
+    <Box bgcolor={color} borderRadius={5} p={2} sx={{cursor:"pointer"}}>
       {/* content */}
       <Box display="flex" alignItems="center">
         <Typography variant="h6" fontSize={18} fontWeight="bold" mr>
-          {description}
+          {title}
         </Typography>
         <Image
           src={icon}
@@ -30,8 +30,8 @@ const TodoNote = ({ note }) => {
         <Typography>{shorten(time)}</Typography>
       </Box>
 
-      {/* location */}
       <Box display="flex" alignItems="center" color="#6f6f6f" mt>
+        {/* location */}
         <Box display="flex" alignItems="center">
           <LocationOnIcon fontSize="small" />
 

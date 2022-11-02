@@ -17,6 +17,8 @@ const useStyle = makeStyles({
     cursor: "pointer",
     float: "left",
     height: 34,
+    display: "flex",
+    alignItems: "center",
     minWidth: 34,
     margin: "5px 8px",
     color: "#f5f4f5",
@@ -25,11 +27,14 @@ const useStyle = makeStyles({
     paddingTop: 6,
     fontSize: 16,
     fontWeight: 400,
-    "&:focus": {
-      background: "#6e6e6e",
-      borderRadius: "50%",
-      fontWeight: 500,
-    },
+    "&:hover": { background: "transparent" },
+  },
+
+  chosen: {
+    background: "#6e6e6e",
+    borderRadius: "50%",
+    fontWeight: 500,
+    "&:hover": { background: "#6e6e6e" },
   },
 
   noDay: {
@@ -50,6 +55,7 @@ const useStyle = makeStyles({
     borderRadius: "50%",
     color: "#000000",
     fontWeight: 500,
+    "&:hover": { background: "#448AFF" },
   },
 
   note: {
@@ -67,10 +73,22 @@ const useStyle = makeStyles({
   selected: {
     background: "#ff2",
   },
+
+  todo: {
+    border: "1px solid #ff2",
+    background: "#ff2",
+    width: 4,
+    height: 4,
+    borderRadius: "50%",
+    position: "absolute",
+    bottom: 2,
+  },
 });
 
 const DaysMonth = () => {
   const { date, notes, todoDate } = useSelector((state) => state);
+
+  let searchNote = notes.map((note) => note.date);
 
   const dispatch = useDispatch();
 
@@ -131,10 +149,14 @@ const DaysMonth = () => {
             onClick={handleDay}
             className={`${classes.day}
             ${day.dayClass.includes("today") && classes.today}
-             ${day.dayClass.includes("clear") && classes.clear}
+            ${day.dayClass.includes("clear") && classes.clear}
+            ${notesDay === todoDate && classes.chosen}
             `}
           >
             {day.number}
+            {searchNote.includes(notesDay) && (
+              <span className={classes.todo}></span>
+            )}
           </Button>
         ) : (
           <div key={index} className={classes.noDay} />

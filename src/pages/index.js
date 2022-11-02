@@ -4,7 +4,13 @@ import TodoList from "../containers/TodoList";
 
 export default function Home() {
   return (
-    <Box borderRadius={10} overflow="hidden" bgcolor="#22242b" width={420}>
+    <Box
+      borderRadius={10}
+      mb={10}
+      bgcolor="#22242b"
+      width={420}
+      maxHeight="100vh"
+    >
       <Calendar />
       <TodoList />
     </Box>

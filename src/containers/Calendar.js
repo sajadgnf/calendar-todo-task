@@ -8,6 +8,7 @@ const Calendar = () => {
   return (
     <Box
       display="flex"
+      borderRadius={10}
       justifyContent="center"
       alignItems="center"
       flexDirection="column"
