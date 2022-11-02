@@ -70,7 +70,7 @@ const useStyle = makeStyles({
 });
 
 const DaysMonth = () => {
-  const date = useSelector((state) => state.date);
+  const { date, notes, todoDate } = useSelector((state) => state);
 
   const dispatch = useDispatch();
 

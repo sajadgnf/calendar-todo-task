@@ -11,7 +11,7 @@ const Calendar = () => {
       justifyContent="center"
       alignItems="center"
       flexDirection="column"
-      bgcolor="#0b0c0e"
+      bgcolor="#22242b"
       color="#fff"
       p={2}
       pt={8}
