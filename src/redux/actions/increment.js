@@ -1,7 +1,7 @@
-import {INCREMENT} from '../actionTypes/actionTypes'
+import { INCREMENT } from "../actionTypes/actionTypes";
 
-const increment = () => ({
-  type: INCREMENT
-})
+const increment = () => {
+  return { type: INCREMENT };
+};
 
-export default increment
+export default increment;

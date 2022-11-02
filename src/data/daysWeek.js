@@ -1,2 +1,2 @@
-const daysWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
-export default daysWeek
+const daysWeek = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+export default daysWeek;

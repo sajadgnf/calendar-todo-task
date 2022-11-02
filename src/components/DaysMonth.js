@@ -1,12 +1,15 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import todoDateAction from "../redux/actions/todoDateAction";
 
 const sameDate = (date1, date2) => {
-  date1.getDate() === date2.getDate() &&
+  return (
+    date1.getDate() === date2.getDate() &&
     date1.getMonth() === date2.getMonth() &&
-    date1.getFullYear() === date2.getFullYear();
+    date1.getFullYear() === date2.getFullYear()
+  );
 };
 
 const useStyle = makeStyles({
@@ -14,18 +17,32 @@ const useStyle = makeStyles({
     cursor: "pointer",
     float: "left",
     height: 34,
-    width: 34,
-    margin: "0 8px",
-    color: "#FFF",
+    minWidth: 34,
+    margin: "5px 8px",
+    color: "#f5f4f5",
     textAlign: "center",
+    padding: 0,
     paddingTop: 6,
     fontSize: 16,
     fontWeight: 400,
+    "&:focus": {
+      background: "#6e6e6e",
+      borderRadius: "50%",
+      fontWeight: 500,
+    },
   },
 
   noDay: {
     cursor: "default",
     float: "left",
+    height: 34,
+    width: 34,
+    margin: "0 8px",
+    color: "#f5f4f5",
+    textAlign: "center",
+    paddingTop: 6,
+    fontSize: 16,
+    fontWeight: 400,
   },
 
   today: {
@@ -46,12 +63,19 @@ const useStyle = makeStyles({
   clear: {
     clear: "both",
   },
+
+  selected: {
+    background: "#ff2",
+  },
 });
 
 const DaysMonth = () => {
   const date = useSelector((state) => state.date);
-  // console.log(new Date(date.getTime()));
+
+  const dispatch = useDispatch();
+
   const classes = useStyle();
+
   let actualDate = new Date(date.getTime());
   actualDate.setDate(1);
 
@@ -70,6 +94,7 @@ const DaysMonth = () => {
     if (sameDate(actualDate, new Date())) {
       dayClass.push("today");
     }
+
     if (actualDate.getDay() === 1) {
       dayClass.push("clear");
     }
@@ -85,6 +110,13 @@ const DaysMonth = () => {
       calendar.push({ dayClass: "noDay", number: null });
     }
   }
+
+  //change date
+  const handleDay = ({ target }) => {
+    let todoDate = target.getAttribute("value");
+    dispatch(todoDateAction(todoDate));
+  };
+
   return (
     <Box>
       {calendar.map((day, index) => {
@@ -93,26 +125,19 @@ const DaysMonth = () => {
         }/${noteMonth.getFullYear()}`;
 
         return day.number !== null ? (
-          <div
+          <Button
             key={index}
             value={notesDay}
+            onClick={handleDay}
             className={`${classes.day}
-                 ${day.dayClass === "noDay" && classes.noDay}
-               ${day.dayClass === "today" && classes.today}
-                ${day.dayClass === "day clear" && classes.clear}
+            ${day.dayClass.includes("today") && classes.today}
+             ${day.dayClass.includes("clear") && classes.clear}
             `}
           >
             {day.number}
-          </div>
+          </Button>
         ) : (
-          <div
-            key={index}
-            className={`${classes.day}
-                 ${day.dayClass === "noDay" && classes.noDay}
-               ${day.dayClass === "today" && classes.today}
-                ${day.dayClass === "day clear" && classes.clear}
-            `}
-          />
+          <div key={index} className={classes.noDay} />
         );
       })}
     </Box>
